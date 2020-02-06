@@ -1,8 +1,6 @@
 package prompter
 
 import (
-	"fmt"
-	
 	"awesome/internal/package/node"
 	"awesome/internal/package/manager"
 
@@ -24,8 +22,6 @@ func Create(title string, n *node.Node) promptui.Select {
 
 func ExecuteSelection(selected string, m *manager.Manager) {
 	child := m.PWD.FindChildByName(selected)
-
-	fmt.Println(child)
 
 	if child != nil {
 		m.SetPWD(child)
