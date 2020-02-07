@@ -34,7 +34,7 @@ func (m *Manager) Execute(command Command) {
 
 func (m *Manager) SetPWD(n *node.Node) {
 	if len(n.GetChildren()) == 0 {
-		fecthed, err := fetcher.FetchAwsomeRepo(n.GetReadmeURL())
+		fecthed, err := fetcher.FetchAwsomeRepo(n.GetURL())
 
 		if err != nil {
 			panic(err)

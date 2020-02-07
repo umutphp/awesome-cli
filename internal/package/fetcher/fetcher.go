@@ -1,7 +1,9 @@
 package fetcher
 
 import (
-	"fmt"
+    "log"
+    "net/url"
+    "strings"
 	"net/http"
 	"io/ioutil"
     "os"
@@ -10,11 +12,12 @@ import (
     "encoding/hex"
 )
 
-const AWESOMEREADME = "https://raw.githubusercontent.com/sindresorhus/awesome/master/readme.md"
-const AWESOMECACHEFOLDER = ".awsomecache"
+const AWESOMEREPOURL       = "https://github.com/sindresorhus/awesome/"
+const AWESOMECACHEFOLDER   = ".awsomecache"
+const RAWGITHUBUSERCONTENT = "https://raw.githubusercontent.com"
 
 func FetchAwsomeRootRepo() (string, error) {
-	return FetchAwsomeRepo(AWESOMEREADME)
+	return FetchAwsomeRepo(AWESOMEREPOURL)
 }
 
 func FetchAwsomeRepo(repourl string) (string, error) {
@@ -28,31 +31,66 @@ func FetchAwsomeRepo(repourl string) (string, error) {
         content, err := ioutil.ReadFile(cacheFile)
         
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return "", err
         } else {
             return string(content), nil
         }
     }
 
-    response, err := http.Get(repourl)
-    
-    if err != nil {
-        fmt.Println(err)
+    readmes := GetPossibleReadmeFileURLs(repourl)
+
+    for _,rurl := range readmes {
+        response, err := http.Get(rurl)
+
+        if err != nil {
+            log.Println(err)
+            continue
+        }
+
+        if response.StatusCode == http.StatusNotFound {
+            //log.Println(rurl, "gives 404.")
+            continue
+        }
+
+        defer response.Body.Close()
+
+        responseData, err := ioutil.ReadAll(response.Body)
+
+        if err != nil {
+            log.Println(err)
+            return "", err
+        } 
+
+        responseString := string(responseData)
+
+        return SaveCache(cacheFile, responseString), nil   
     }
 
-    defer response.Body.Close()
+    return "", nil
+}
 
-    responseData, err := ioutil.ReadAll(response.Body)
-
+func GetPossibleReadmeFileURLs(repourl string) []string {
+    // Parse the URL and ensure there are no errors.
+    u, err := url.Parse(repourl)
     if err != nil {
-        fmt.Println(err)
-        return "", err
-    } 
+        log.Println(err)
+    }
 
-    responseString := string(responseData)
+    if strings.Count(u.Host, "github.com") == 0 {
+        return []string{}
+    }
 
-    return SaveCache(cacheFile, responseString), nil
+    prefix := RAWGITHUBUSERCONTENT + u.Path + "/master/"
+
+    return []string{
+        prefix + "README",
+        prefix + "README.MD",
+        prefix + "README.md",
+        prefix + "readme",
+        prefix + "readme.md",
+        prefix + "readme.MD",
+    }
 }
 
 func GetCachePath(url string) string {
@@ -63,7 +101,7 @@ func GetCacheFolderPath() string {
 	home, err := os.UserHomeDir()
 
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return ""
     }
 
@@ -74,7 +112,7 @@ func SaveCache(filename string, text string) string {
 	file, err := os.Create(filename)
 
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return ""
     }
 

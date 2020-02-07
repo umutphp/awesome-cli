@@ -2,12 +2,6 @@ package node
 
 import (
 	"fmt"
-	"strings"
-	"net/url"
-)
-
-const (
-	RAWGITHUBUSERCONTENT = "https://raw.githubusercontent.com"
 )
 
 type Node struct {
@@ -38,20 +32,6 @@ func (n *Node) GetName() string {
 
 func (n *Node) GetURL() string {
 	return n.URL
-}
-
-func (n *Node) GetReadmeURL() string {
-    // Parse the URL and ensure there are no errors.
-    u, err := url.Parse(n.GetURL())
-    if err != nil {
-        panic(err)
-    }
-
-    if strings.Count(u.Host, "github.com") == 0 {
-        return ""
-    }
-
-    return RAWGITHUBUSERCONTENT + u.Path + "/master/README.md"
 }
 
 func (n *Node) GetFancyText() string {
