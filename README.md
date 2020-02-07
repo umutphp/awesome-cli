@@ -3,6 +3,8 @@ Awesome CLI is a simple and immature command line tool to give you a fancy comma
 
 The CLI starts with the root repository [sindresorhus/awesome](https://github.com/sindresorhus/awesome) and guides to to the final repo according to your choices. It fetches Readme files of the repositories and parses them to create the select list interface. So, the CLI needs a working internet :). It also uses file caches to cache the Readme file contents. You can find the cache folder with name ".awsomecache" under your home folder.
 
+![IMAGE ALT TEXT](./assets/images/awesome-cli.gif)
+
 ## How To Install And Use
 
 ### Basic
@@ -40,5 +42,3 @@ You choose "Async"
 ✔ aiopyramid
 You choose "aiopyramid"
 ```
-
-![IMAGE ALT TEXT](./assets/images/awesome-cli.gif)
