@@ -1,7 +1,9 @@
 package parser
 
 import (
+	//"fmt"
 	"strings"
+	"regexp"
 
 	"awesome/internal/package/node"
 )
@@ -56,6 +58,13 @@ func IsCategory(line string) bool {
 	return strings.HasPrefix(line, "## ") && !strings.HasPrefix(line, "### ")
 }
 
+func IsNestedContent(line string) string {
+	re := regexp.MustCompile(`^\s+\-.\[.+\]`)
+	if re.FindStringIndex(line) != nil {
+		return line
+	}
+	return ""
+}
 
 func IsContent(line string) bool {
 	return strings.HasPrefix(line, "- [") || strings.HasPrefix(line, "* [")
