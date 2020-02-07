@@ -1,0 +1,16 @@
+sudo: required
+language: go
+go: '1.13'
+install:
+  - make setup
+script: make ci
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+notifications:
+  email: false
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: curl -sL http://git.io/goreleaser | bash
+    on:
+      tags: true
