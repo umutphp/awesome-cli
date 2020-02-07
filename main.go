@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/browser"
 )
 
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
 
 func main() {
 	manager := manager.New()
@@ -32,7 +32,7 @@ func main() {
 		}
 
 		prompter.ExecuteSelection(selected, &manager)
-		
+
 		// Where we are in the three
 		cursor = manager.GetPWD()
 		
