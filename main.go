@@ -9,6 +9,8 @@ import (
 	"github.com/pkg/browser"
 )
 
+const VERSION = "0.0.1"
+
 func main() {
 	manager := manager.New()
 
@@ -16,6 +18,8 @@ func main() {
 
 	cursor := manager.Root
 	i      := 0
+
+	fmt.Println("aweome-cli Version", VERSION)
 
 	for {
 	    prompt := prompter.Create(cursor.Name, cursor)
@@ -27,11 +31,11 @@ func main() {
 			return
 		}
 
-		fmt.Printf("You choose %q\n", selected)
-
 		prompter.ExecuteSelection(selected, &manager)
 		cursor = manager.GetPWD()
 		
+		fmt.Printf("You choose %q\n", cursor.GetFancyText())
+
 		i++
 		
 		if i > 3 {
@@ -39,6 +43,5 @@ func main() {
 		}
 	}
 
-	fmt.Println(cursor)
 	browser.OpenURL(cursor.GetURL())
 }

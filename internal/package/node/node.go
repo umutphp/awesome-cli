@@ -54,6 +54,16 @@ func (n *Node) GetReadmeURL() string {
     return RAWGITHUBUSERCONTENT + u.Path + "/master/README.md"
 }
 
+func (n *Node) GetFancyText() string {
+	fancy := n.GetName()
+
+	if n.GetDescription() != "" {
+		fancy = fancy + " " + n.GetDescription()
+	}
+
+	return fancy
+}
+
 func (n *Node) GetDescription() string {
 	return n.Description
 }
