@@ -52,6 +52,12 @@ func (m *Manager) GetPWD() *node.Node {
 	return m.PWD
 }
 
+func (m *Manager) GoBack() {
+	if m.PWD.Parent != nil {
+		m.SetPWD(m.PWD.Parent)
+	}
+}
+
 func (m *Manager) Initialize() {
 	fecthed, err := fetcher.FetchAwsomeRootRepo()
 

@@ -35,8 +35,8 @@ func main() {
 
 		// Where we are in the three
 		cursor = manager.GetPWD()
-		
-		fmt.Printf("You choose %q\n", cursor.GetFancyText())
+
+		//fmt.Printf("You choose %q\n", cursor.GetName())
 
 		i++
 		// Awesome tree has only three level depth

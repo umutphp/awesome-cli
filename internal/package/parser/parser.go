@@ -10,7 +10,10 @@ func ParseIndex(readme string) node.Node {
 	var parseStatus = false
 	var cname string  = ""
 	var cobj  node.Node
-	var cin int = 0
+	// May be used for logging
+	var categoryCount int = 0
+	var contentCount int  = 0
+
 	var index node.Node
 
     for _, line := range strings.Split(strings.TrimSuffix(readme, "\n"), "\n") {
@@ -26,7 +29,7 @@ func ParseIndex(readme string) node.Node {
 
 		    	cname = LineToTitle(line)
 		    	cobj  = node.New(cname,"", "")
-		    	cin++
+		    	categoryCount++
 		    	continue
 		    } else {
 		    	parseStatus = false
@@ -38,12 +41,13 @@ func ParseIndex(readme string) node.Node {
 	    		name, url, desc, _ := ParseContentFromLine(line)
 
 	    		cobj.AddChild(node.New(name, url, desc))
+	    		contentCount++
 		    	continue
 		    }
 	    }
 	}
 
-	index.AddChild(cobj)	
+	index.AddChild(cobj)
 
 	return index
 }
@@ -58,7 +62,7 @@ func IsContent(line string) bool {
 }
 
 func IsCategoryIgnored(line string) bool {
-	ignoreList := []string{"Contents", "Contributing", "TODO", "Introduction"}
+	ignoreList := []string{"Table of Contents", "Contents", "Contributing", "TODO", "Introduction"}
 	str        := LineToTitle(line)
 	for _, s := range ignoreList {
         if (s == str) {
