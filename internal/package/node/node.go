@@ -1,6 +1,7 @@
 package node
 
 import (
+	"fmt"
 	"strings"
 	"net/url"
 )
@@ -26,6 +27,10 @@ func New(name, url, description string,) Node {
 		Parent:      nil,
 	}
 }
+
+func (n *Node) Display() {
+	fmt.Println(n.Name, n.URL, n.Description)
+} 
 
 func (n *Node) GetName() string {
 	return n.Name

@@ -54,7 +54,7 @@ func IsCategory(line string) bool {
 
 
 func IsContent(line string) bool {
-	return strings.HasPrefix(line, "- [")
+	return strings.HasPrefix(line, "- [") || strings.HasPrefix(line, "* [")
 }
 
 func IsCategoryIgnored(line string) bool {

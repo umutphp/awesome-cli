@@ -32,9 +32,9 @@ func (m *Manager) Execute(command Command) {
 	command.Execute(m)
 }
 
-func (m *Manager) SetPWD(node *node.Node) {
-	if len(node.GetChildren()) == 0 {
-		fecthed, err := fetcher.FetchAwsomeRepo(node.GetReadmeURL())
+func (m *Manager) SetPWD(n *node.Node) {
+	if len(n.GetChildren()) == 0 {
+		fecthed, err := fetcher.FetchAwsomeRepo(n.GetReadmeURL())
 
 		if err != nil {
 			panic(err)
@@ -42,10 +42,10 @@ func (m *Manager) SetPWD(node *node.Node) {
 
 		temp := parser.ParseIndex(fecthed)
 
-		node.SetChildren(temp.GetChildren())
+		n.SetChildren(temp.GetChildren())
 	}
 
-	m.PWD = node
+	m.PWD = n
 }
 
 func (m *Manager) GetPWD() *node.Node {

@@ -5,6 +5,8 @@ import (
 
 	"awesome/internal/package/manager"
 	"awesome/internal/package/prompter"
+
+	"github.com/pkg/browser"
 )
 
 func main() {
@@ -32,8 +34,11 @@ func main() {
 		
 		i++
 		
-		if i > 2 {
+		if i > 3 {
 			break
 		}
 	}
+
+	fmt.Println(cursor)
+	browser.OpenURL(cursor.GetURL())
 }
