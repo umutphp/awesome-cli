@@ -16,6 +16,7 @@ func Create(title string, n *node.Node) promptui.Select {
 
 	return promptui.Select{
 		Label: "Select from '" + title + "' list",
+		Size:  int(len(items)/2),
 		Items: items,
 	}
 }

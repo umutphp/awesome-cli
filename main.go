@@ -32,12 +32,14 @@ func main() {
 		}
 
 		prompter.ExecuteSelection(selected, &manager)
+		
+		// Where we are in the three
 		cursor = manager.GetPWD()
 		
 		fmt.Printf("You choose %q\n", cursor.GetFancyText())
 
 		i++
-		
+		// Awesome tree has only three level depth
 		if i > 3 {
 			break
 		}
