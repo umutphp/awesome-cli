@@ -40,3 +40,5 @@ You choose "Async"
 ✔ aiopyramid
 You choose "aiopyramid"
 ```
+
+![IMAGE ALT TEXT](./assets/images/awesome-cli.gif)
