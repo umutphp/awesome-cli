@@ -37,13 +37,21 @@ func ParseIndex(readme string) node.Node {
 		    	parseStatus = false
 		    }
 	    }
-
+	    
 	    if (parseStatus == true) {
 	    	if IsContent(line) {
-	    		name, url, desc, _ := ParseContentFromLine(line)
+	    		name, url, desc, _  := ParseContentFromLine(line)
 
 	    		cobj.AddChild(node.New(name, url, desc))
 	    		contentCount++
+		    	continue
+		    }
+
+		    if (IsNestedContent(line)) {
+		    	name, url, desc, _ := ParseContentFromLine(strings.Trim(line, " "))
+
+		    	cobj.AddChild(node.New("  " + name, url, desc))
+		    	contentCount++
 		    	continue
 		    }
 	    }
@@ -58,12 +66,14 @@ func IsCategory(line string) bool {
 	return strings.HasPrefix(line, "## ") && !strings.HasPrefix(line, "### ")
 }
 
-func IsNestedContent(line string) string {
+func IsNestedContent(line string) bool {
 	re := regexp.MustCompile(`^\s+\-.\[.+\]`)
-	if re.FindStringIndex(line) != nil {
-		return line
+	
+	if len(re.FindStringIndex(line)) > 0 {
+		return true
 	}
-	return ""
+
+	return false
 }
 
 func IsContent(line string) bool {

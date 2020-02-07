@@ -20,6 +20,10 @@ func Create(title string, n *node.Node) promptui.Select {
 		size = int(len(items)/2)
 	}
 
+	if size > 10 {
+		size = 10
+	}
+
 	return promptui.Select{
 		Label: "Select from '" + title + "' list",
 		Size:  size,
