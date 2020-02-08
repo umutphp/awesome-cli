@@ -63,19 +63,26 @@ func (n *Node) SetChildren(arr []Node) {
 func (n *Node) GetPWD() []string {
 	pwd   := []string{}
 	point := n
+
 	for {
+		pwd = append(pwd, point.GetName())
+		
 		if (point.GetParent() == nil) {
 			break
 		}
 
-		pwd = append(pwd, point.GetName())
 		point = point.GetParent()
 	}
 
 	return pwd
 }
 
+func (n *Node) SetParent(child *Node) {
+	n.Parent = child
+}
+
 func (n *Node) AddChild(child Node) {
+	child.SetParent(n)
 	n.Children = append(n.Children, child)
 }
 
