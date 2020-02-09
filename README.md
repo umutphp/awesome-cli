@@ -4,6 +4,21 @@ Awesome CLI is a simple and immature command line tool to give you a fancy comma
 
 ![](https://github.com/umutphp/awesome-cli/workflows/build/badge.svg?branch=master) [![WOSPM Badge](https://app.wospm.info/badge/A42eGNpyGO)](https://app.wospm.info/project/A42eGNpyGO)
 
+---
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Introduction](#introduction)
+- [How To Install And Use](#how-to-install-and-use)
+  - [Basic](#basic)
+  - [Build as binary](#build-as-binary)
+  - [Sample Execution](#sample-execution)
+- [How To Contribute](#how-to-contribute)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+---
+
 ## Introduction
 
 The CLI starts with the root repository [sindresorhus/awesome](https://github.com/sindresorhus/awesome) and guides to to the final repo according to your choices. It fetches Readme files of the repositories and parses them to create the select lists. So, the CLI needs a working network :). It also uses file caches to cache the Readme file contents. You can find the cache folder with name ".awsomecache" under your home folder.
