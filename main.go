@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/browser"
 )
 
-const VERSION = "0.0.3"
+const VERSION = "0.1.0"
 
 func main() {
 	manager := manager.New()

@@ -1,10 +1,10 @@
-name: goreleaser
+name: Build And Release
 
 on:
   push:
     tags:
       - 'v*.*.*'
-      
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
