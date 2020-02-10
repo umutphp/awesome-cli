@@ -1,7 +1,7 @@
 package node_test
 
 import (
-	"awesome/internal/package/node"
+	"github.com/umutphp/awesome-cli/internal/package/node"
 
 	"testing"
 )

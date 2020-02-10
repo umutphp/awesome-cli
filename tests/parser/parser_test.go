@@ -1,7 +1,7 @@
 package parser_test
 
 import (
-	"awesome/internal/package/parser"
+	"github.com/umutphp/awesome-cli/internal/package/parser"
 
 	"testing"
 )
