@@ -13,6 +13,7 @@ Awesome CLI is a simple and immature command line tool to give you a fancy comma
 - [How To Install And Use](#how-to-install-and-use)
   - [Basic](#basic)
   - [Build as binary](#build-as-binary)
+  - [Download and use oficial binary](#download-and-use-oficial-binary)
   - [Sample Execution](#sample-execution)
 - [How To Contribute](#how-to-contribute)
 
@@ -45,6 +46,15 @@ Follow the steps;
 git clone git@github.com:umutphp/awesome-cli.git
 cd awesome-cli
 sudo go build -o /usr/local/bin/awesome-cli .
+awesome-cli
+```
+
+### Download and use oficial binary
+
+Visit the [latest release](https://github.com/umutphp/awesome-cli/releases/latest) page and download the binary correspondingly. 
+
+```bash
+wget -O /usr/local/bin/awesome-cli https://latest-binary-url
 awesome-cli
 ```
 
