@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"awesome/internal/package/manager"
-	"awesome/internal/package/prompter"
+	"github.com/umutphp/awesome-cli/internal/package/manager"
+	"github.com/umutphp/awesome-cli/internal/package/prompter"
 
 	"github.com/pkg/browser"
 )

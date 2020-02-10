@@ -1,8 +1,8 @@
 package prompter
 
 import (
-	"awesome/internal/package/node"
-	"awesome/internal/package/manager"
+	"github.com/umutphp/awesome-cli/internal/package/node"
+	"github.com/umutphp/awesome-cli/internal/package/manager"
 
 	"github.com/manifoldco/promptui"
 )

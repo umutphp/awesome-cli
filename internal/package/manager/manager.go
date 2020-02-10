@@ -3,9 +3,9 @@ package manager
 import (
 	"fmt"
 
-    "awesome/internal/package/node"
-    "awesome/internal/package/fetcher"
-    "awesome/internal/package/parser"
+    "github.com/umutphp/awesome-cli/internal/package/node"
+    "github.com/umutphp/awesome-cli/internal/package/fetcher"
+    "github.com/umutphp/awesome-cli/internal/package/parser"
 )
 
 type Manager struct {

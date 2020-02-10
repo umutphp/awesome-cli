@@ -1,4 +1,4 @@
-module awesome
+module github.com/umutphp/awesome-cli
 
 go 1.13
 
