@@ -2,7 +2,7 @@
 
 Awesome CLI is a simple and immature command line tool to give you a fancy command line interface to dive into [Awesome](https://github.com/sindresorhus/awesome) lists.
 
-![](https://github.com/umutphp/awesome-cli/workflows/build/badge.svg?branch=master) [![WOSPM Badge](https://app.wospm.info/badge/A42eGNpyGO)](https://app.wospm.info/project/A42eGNpyGO)
+![Build](https://github.com/umutphp/awesome-cli/workflows/Test%20&%20Build/badge.svg) ![Release](https://github.com/umutphp/awesome-cli/workflows/Build%20&%20Release/badge.svg) [![WOSPM Badge](https://app.wospm.info/badge/A42eGNpyGO)](https://app.wospm.info/project/A42eGNpyGO)
 
 ---
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
