@@ -81,7 +81,7 @@ func IsContent(line string) bool {
 }
 
 func IsCategoryIgnored(line string) bool {
-	ignoreList := []string{"Table of Contents", "Contents", "Contributing", "TODO", "Introduction"}
+	ignoreList := []string{"Table of Contents", "Contents", "Contributing", "TODO", "Introduction", "License"}
 	str        := LineToTitle(line)
 	for _, s := range ignoreList {
         if (s == str) {

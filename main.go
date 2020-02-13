@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/umutphp/awesome-cli/internal/package/manager"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
@@ -9,9 +10,10 @@ import (
 	"github.com/pkg/browser"
 )
 
-const VERSION = "0.1.0"
+const VERSION = "0.2.0"
 
 func main() {
+    args    := os.Args[1:]
 	manager := manager.New()
 
 	manager.Initialize()
@@ -21,6 +23,17 @@ func main() {
 
 	fmt.Println("aweome-cli Version", VERSION)
 
+	if len(args) > 0 && (args[0] == "random" || args[0] == "surprise") {
+		rpwd,url := prompter.Random(&manager)
+
+		for _, str := range rpwd {
+			fmt.Println(str)
+		}
+
+		browser.OpenURL(url)
+		return
+	}
+		
 	for {
 	    prompt := prompter.Create(cursor.Name, cursor)
 
@@ -35,8 +48,6 @@ func main() {
 
 		// Where we are in the three
 		cursor = manager.GetPWD()
-
-		//fmt.Printf("You choose %q\n", cursor.GetName())
 
 		i++
 		// Awesome tree has only three level depth
