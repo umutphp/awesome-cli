@@ -57,7 +57,7 @@ func RandomRepo(man manager.Manager) {
 func Walk(man manager.Manager) {
 	cursor     := man.Root
 	i          := 0
-	favourites := favourite.New("awesome")
+	favourites := favourite.NewFromCache("awesome")
 	firstsel   := ""
 
 	for {
@@ -96,6 +96,8 @@ func Walk(man manager.Manager) {
 
 	fmt.Println(favourites)
 	fmt.Println(cursor.GetURL())
+	
+	favourites.SaveCache()
 
 	browser.OpenURL(cursor.GetURL())
 }
