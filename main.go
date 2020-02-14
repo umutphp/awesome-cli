@@ -18,16 +18,45 @@ func main() {
 
 	manager.Initialize()
 
-	cursor := manager.Root
-	i      := 0
-
 	fmt.Println("aweome-cli Version", VERSION)
 
 	if len(args) > 0 && (args[0] == "random" || args[0] == "surprise") {
 		RandomRepo(manager)
 		return
 	}
+
+	if len(args) > 0 && args[0] == "help" {
+		DisplayHelp()
+		return
+	}
 		
+	Walk(manager)
+}
+
+func DisplayHelp() {
+	fmt.Println("")
+	fmt.Println("Options of awesome-cli:")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "help", "To print this screen.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "random", "To go to a random awesome content.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "Same with random option.")
+}
+
+func RandomRepo(man manager.Manager) {
+	rpwd,url := prompter.Random(&man)
+
+	for _, str := range rpwd {
+		fmt.Println(str)
+	}
+
+	fmt.Println(url)
+	
+	browser.OpenURL(url)
+}
+
+func Walk(man manager.Manager) {
+	cursor := man.Root
+	i      := 0
+
 	for {
 	    prompt := prompter.Create(cursor.Name, cursor)
 
@@ -38,10 +67,10 @@ func main() {
 			return
 		}
 
-		prompter.ExecuteSelection(selected, &manager)
+		prompter.ExecuteSelection(selected, &man)
 
 		// Where we are in the three
-		cursor = manager.GetPWD()
+		cursor = man.GetPWD()
 
 		i++
 		// Awesome tree has only three level depth
@@ -50,15 +79,7 @@ func main() {
 		}
 	}
 
+	fmt.Println(cursor.GetURL())
+
 	browser.OpenURL(cursor.GetURL())
-}
-
-func RandomRepo(man manager.Manager) {
-	rpwd,url := prompter.Random(&man)
-
-	for _, str := range rpwd {
-		fmt.Println(str)
-	}
-
-	browser.OpenURL(url)
 }

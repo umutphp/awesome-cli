@@ -67,7 +67,7 @@ func Random(m *manager.Manager) ([]string, string) {
 	    m.SetPWD(child)
 
 		if len(child.GetChildren()) <= 1 {
-			continue
+			return Random(m)
 		}
 
 		list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
