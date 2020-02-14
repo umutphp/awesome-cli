@@ -94,9 +94,8 @@ func Walk(man manager.Manager) {
 		}
 	}
 
-	fmt.Println(favourites)
 	fmt.Println(cursor.GetURL())
-	
+
 	favourites.SaveCache()
 
 	browser.OpenURL(cursor.GetURL())
