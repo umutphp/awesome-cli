@@ -13,7 +13,7 @@ import (
 )
 
 const AWESOMEREPOURL       = "https://github.com/sindresorhus/awesome/"
-const AWESOMECACHEFOLDER   = ".awsomecache"
+const AWESOMECACHEFOLDER   = ".awesomecache"
 const RAWGITHUBUSERCONTENT = "https://raw.githubusercontent.com"
 
 func FetchAwsomeRootRepo() (string, error) {
@@ -177,4 +177,11 @@ func PadLeft(str, pad string, lenght int) string {
             return str[0:lenght]
         }
     }
+}
+
+
+func IsUrl(str string) bool {
+    u, err := url.Parse(str)
+    
+    return err == nil && u.Scheme != "" && u.Host != ""
 }

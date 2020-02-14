@@ -24,13 +24,7 @@ func main() {
 	fmt.Println("aweome-cli Version", VERSION)
 
 	if len(args) > 0 && (args[0] == "random" || args[0] == "surprise") {
-		rpwd,url := prompter.Random(&manager)
-
-		for _, str := range rpwd {
-			fmt.Println(str)
-		}
-
-		browser.OpenURL(url)
+		RandomRepo(manager)
 		return
 	}
 		
@@ -57,4 +51,14 @@ func main() {
 	}
 
 	browser.OpenURL(cursor.GetURL())
+}
+
+func RandomRepo(man manager.Manager) {
+	rpwd,url := prompter.Random(&man)
+
+	for _, str := range rpwd {
+		fmt.Println(str)
+	}
+
+	browser.OpenURL(url)
 }

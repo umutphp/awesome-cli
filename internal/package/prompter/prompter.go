@@ -7,6 +7,7 @@ import (
 	
 	"github.com/umutphp/awesome-cli/internal/package/node"
 	"github.com/umutphp/awesome-cli/internal/package/manager"
+	"github.com/umutphp/awesome-cli/internal/package/fetcher"
 
 	"github.com/manifoldco/promptui"
 )
@@ -62,12 +63,15 @@ func Random(m *manager.Manager) ([]string, string) {
 	    children  = child.GetChildren()
 	    ind       = rand.Intn(len(children))
 	    child     = &children[ind]
-	    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
-		m.SetPWD(child)
 
-		if len(child.GetChildren()) > 1 {
-			break;
+	    m.SetPWD(child)
+
+		if len(child.GetChildren()) <= 1 {
+			continue
 		}
+
+		list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
+		break
 	}
 
 	// Chose main category on sub awesome-list repository
@@ -87,6 +91,10 @@ func Random(m *manager.Manager) ([]string, string) {
     list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
 
     if child.GetURL() == "" {
+    	return Random(m)
+    }
+
+    if fetcher.IsUrl(child.GetURL()) == false {
     	return Random(m)
     }
 
