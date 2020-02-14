@@ -44,8 +44,51 @@ func ExecuteSelection(selected string, m *manager.Manager) {
 	}
 }
 
-func Random(m *manager.Manager) ([]string, string) {
+func ToFavouriteString(child *node.Node) string {
 	IconGood := promptui.Styler(promptui.FGGreen)("✔")
+	return IconGood + " " + promptui.Styler(promptui.FGFaint)(strings.Trim(child.GetName(), " "))
+}
+
+func Surprise(m *manager.Manager, category string, subcategory string) ([]string, string) {
+	cursor   := m.Root
+	list     := []string{}
+
+	child    := cursor.FindChildByName(category)
+	list      = append(list, ToFavouriteString(child))
+
+	child     = child.FindChildByName(subcategory)
+	list      = append(list, ToFavouriteString(child))
+	m.SetPWD(child)
+
+	// Chose main category on sub awesome-list repository
+	rand.Seed(time.Now().UnixNano())
+    children := child.GetChildren()
+    ind      := rand.Intn(len(children))
+    child     = &children[ind]
+    list      = append(list, ToFavouriteString(child))
+
+	m.SetPWD(child)
+
+	// Select last child
+	rand.Seed(time.Now().UnixNano())
+    children  = child.GetChildren()
+    ind       = rand.Intn(len(children))
+    child     = &children[ind]
+    list      = append(list, ToFavouriteString(child))
+
+
+	if child.GetURL() == "" {
+    	return Surprise(m, category, subcategory)
+    }
+
+    if fetcher.IsUrl(child.GetURL()) == false {
+    	return Surprise(m, category, subcategory)
+    }
+
+	return list,child.GetURL()
+}
+
+func Random(m *manager.Manager) ([]string, string) {
 	cursor   := m.Root
 	list     := []string{}
 
@@ -55,7 +98,7 @@ func Random(m *manager.Manager) ([]string, string) {
 
     ind      := rand.Intn(len(children))
     child    := &children[ind]
-    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(strings.Trim(child.GetName(), " ")))
+    list      = append(list, ToFavouriteString(child))
 
     // Select sub awesome-list repository
     for {
@@ -70,7 +113,7 @@ func Random(m *manager.Manager) ([]string, string) {
 			return Random(m)
 		}
 
-		list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
+		list      = append(list, ToFavouriteString(child))
 		break
 	}
 
@@ -79,7 +122,7 @@ func Random(m *manager.Manager) ([]string, string) {
     children  = child.GetChildren()
     ind       = rand.Intn(len(children))
     child     = &children[ind]
-    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
+    list      = append(list, ToFavouriteString(child))
 
 	m.SetPWD(child)
 
@@ -88,7 +131,7 @@ func Random(m *manager.Manager) ([]string, string) {
     children  = child.GetChildren()
     ind       = rand.Intn(len(children))
     child     = &children[ind]
-    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
+    list      = append(list, ToFavouriteString(child))
 
     if child.GetURL() == "" {
     	return Random(m)

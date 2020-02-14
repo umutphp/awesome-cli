@@ -11,6 +11,7 @@ import (
 	"github.com/pkg/browser"
 )
 
+// VERSION of the cli
 const VERSION = "0.2.0"
 
 func main() {
@@ -21,11 +22,15 @@ func main() {
 
 	fmt.Println("aweome-cli Version", VERSION)
 
-	if len(args) > 0 && (args[0] == "random" || args[0] == "surprise") {
+	if (len(args) > 0) && (args[0] == "random") {
 		RandomRepo(manager)
 		return
 	}
 
+	if (len(args) > 0) && (args[0] == "surprise") {
+		SurpriseRepo(manager)
+		return
+	}
 	if len(args) > 0 && args[0] == "help" {
 		DisplayHelp()
 		return
@@ -47,17 +52,26 @@ func DisplayHelp() {
 func RandomRepo(man manager.Manager) {
 	rpwd,url   := prompter.Random(&man)
 
-	for _, str := range rpwd {
+	DisplayRepoWithPath(url, rpwd)
+}
+
+func SurpriseRepo(man manager.Manager) {
+	favourites  := favourite.NewFromCache("awesome")
+	category    := favourites.GetRandom()
+	subcategory := category.GetRandom()
+	rpwd,url    := prompter.Surprise(&man, category.GetName(), subcategory.GetName())
+
+	DisplayRepoWithPath(url, rpwd)
+}
+
+func DisplayRepoWithPath(url string, path []string) {
+	for _, str := range path {
 		fmt.Println(str)
 	}
 
 	fmt.Println(url)
 	
 	browser.OpenURL(url)
-}
-
-func SurpriseRepo(man manager.Manager) {
-	//favourites := favourite.NewFromCache("awesome")
 }
 
 func Walk(man manager.Manager) {
