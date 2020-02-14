@@ -39,11 +39,13 @@ func DisplayHelp() {
 	fmt.Println("Options of awesome-cli:")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "help", "To print this screen.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "random", "To go to a random awesome content.")
-	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "Same with random option.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "To go to a surprise awesome content according to your previos choices.")
+	fmt.Println("")
+	fmt.Println("")
 }
 
 func RandomRepo(man manager.Manager) {
-	rpwd,url := prompter.Random(&man)
+	rpwd,url   := prompter.Random(&man)
 
 	for _, str := range rpwd {
 		fmt.Println(str)
@@ -52,6 +54,10 @@ func RandomRepo(man manager.Manager) {
 	fmt.Println(url)
 	
 	browser.OpenURL(url)
+}
+
+func SurpriseRepo(man manager.Manager) {
+	//favourites := favourite.NewFromCache("awesome")
 }
 
 func Walk(man manager.Manager) {
