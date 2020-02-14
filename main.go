@@ -57,6 +57,11 @@ func RandomRepo(man manager.Manager) {
 
 func SurpriseRepo(man manager.Manager) {
 	favourites  := favourite.NewFromCache("awesome")
+
+	if len(favourites.GetChildren() == 0) {
+		RandomRepo(man)
+	}
+
 	category    := favourites.GetRandom()
 	subcategory := category.GetRandom()
 	rpwd,url    := prompter.Surprise(&man, category.GetName(), subcategory.GetName())

@@ -29,6 +29,10 @@ func (f *Favourite) Add(fav Favourite) {
 	}
 }
 
+func (f *Favourite) GetChildren() map[string]Favourite {
+	return f.Children
+}
+
 func (f *Favourite) GetName() string {
 	return f.Name
 }
