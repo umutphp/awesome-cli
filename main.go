@@ -58,7 +58,7 @@ func RandomRepo(man manager.Manager) {
 func SurpriseRepo(man manager.Manager) {
 	favourites  := favourite.NewFromCache("awesome")
 
-	if len(favourites.GetChildren() == 0) {
+	if len(favourites.GetChildren()) == 0 {
 		RandomRepo(man)
 	}
 
