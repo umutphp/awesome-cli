@@ -6,6 +6,7 @@ import (
 
 	"github.com/umutphp/awesome-cli/internal/package/manager"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
+	"github.com/umutphp/awesome-cli/internal/package/favourite"
 
 	"github.com/pkg/browser"
 )
@@ -54,8 +55,10 @@ func RandomRepo(man manager.Manager) {
 }
 
 func Walk(man manager.Manager) {
-	cursor := man.Root
-	i      := 0
+	cursor     := man.Root
+	i          := 0
+	favourites := favourite.New("awesome")
+	firstsel   := ""
 
 	for {
 	    prompt := prompter.Create(cursor.Name, cursor)
@@ -72,6 +75,18 @@ func Walk(man manager.Manager) {
 		// Where we are in the three
 		cursor = man.GetPWD()
 
+		// First selection
+		if i == 0 {
+			firstsel = selected
+			favourites.Add(favourite.New(selected))
+		}
+
+		// Second selection
+		if i == 1 {
+			f := favourites.GetChild(firstsel)
+			f.Add(favourite.New(selected))
+		}
+
 		i++
 		// Awesome tree has only three level depth
 		if i > 3 {
@@ -79,6 +94,7 @@ func Walk(man manager.Manager) {
 		}
 	}
 
+	fmt.Println(favourites)
 	fmt.Println(cursor.GetURL())
 
 	browser.OpenURL(cursor.GetURL())
