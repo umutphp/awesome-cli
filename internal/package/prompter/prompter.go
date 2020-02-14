@@ -54,7 +54,7 @@ func Random(m *manager.Manager) ([]string, string) {
 
     ind      := rand.Intn(len(children))
     child    := &children[ind]
-    list      = append(list, IconGood + " " + strings.Trim(child.GetName(), " "))
+    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(strings.Trim(child.GetName(), " ")))
 
     // Select sub awesome-list repository
     for {
@@ -62,7 +62,7 @@ func Random(m *manager.Manager) ([]string, string) {
 	    children  = child.GetChildren()
 	    ind       = rand.Intn(len(children))
 	    child     = &children[ind]
-	    list      = append(list, IconGood + " " + child.GetName())
+	    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
 		m.SetPWD(child)
 
 		if len(child.GetChildren()) > 1 {
@@ -75,7 +75,7 @@ func Random(m *manager.Manager) ([]string, string) {
     children  = child.GetChildren()
     ind       = rand.Intn(len(children))
     child     = &children[ind]
-    list      = append(list, IconGood + " " + child.GetName())
+    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
 
 	m.SetPWD(child)
 
@@ -84,7 +84,7 @@ func Random(m *manager.Manager) ([]string, string) {
     children  = child.GetChildren()
     ind       = rand.Intn(len(children))
     child     = &children[ind]
-    list      = append(list, IconGood + " " + child.GetName())
+    list      = append(list, IconGood + " " + promptui.Styler(promptui.FGFaint)(child.GetName()))
 
     if child.GetURL() == "" {
     	return Random(m)
