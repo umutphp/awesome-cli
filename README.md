@@ -14,6 +14,7 @@ Awesome CLI is a simple and immature command line tool to give you a fancy comma
   - [Basic](#basic)
   - [Build as binary](#build-as-binary)
   - [Download and use oficial binary](#download-and-use-oficial-binary)
+  - [CLI Options](#cli-options)
   - [Sample Execution](#sample-execution)
 - [How To Contribute](#how-to-contribute)
 
@@ -33,9 +34,9 @@ The CLI starts with the root repository [sindresorhus/awesome](https://github.co
 Follow the steps;
 
 ```bash
-git clone git@github.com:umutphp/awesome-cli.git
-cd awesome-cli
-go run main.go
+> $ git clone git@github.com:umutphp/awesome-cli.git
+> $ cd awesome-cli
+> $ go run main.go
 ```
 
 ### Build as binary
@@ -43,10 +44,10 @@ go run main.go
 Follow the steps;
 
 ```bash
-git clone git@github.com:umutphp/awesome-cli.git
-cd awesome-cli
-sudo go build -o /usr/local/bin/awesome-cli .
-awesome-cli
+> $ git clone git@github.com:umutphp/awesome-cli.git
+> $ cd awesome-cli
+> $ sudo go build -o /usr/local/bin/awesome-cli .
+> $ awesome-cli
 ```
 
 ### Download and use oficial binary
@@ -54,23 +55,34 @@ awesome-cli
 Visit the [latest release](https://github.com/umutphp/awesome-cli/releases/latest) page and download the binary correspondingly. 
 
 ```bash
-wget -O /usr/local/bin/awesome-cli https://latest-binary-url
-awesome-cli
+> $ wget -O /usr/local/bin/awesome-cli https://latest-binary-url
+> $ awesome-cli
+```
+
+### CLI Options
+
+The CLI works in interactive mode without any given option. But, It can be also called some options described below;
+
+```bash
+> $ awesome-cli help
+aweome-cli Version 0.2.0
+
+Options of awesome-cli:
+  help      To print this screen.
+  random    To go to a random awesome content.
+  surprise  To go to a surprise awesome content according to your previos choices.
 ```
 
 ### Sample Execution
 
 ```bash
 > $ go run main.go
-aweome-cli Version 0.0.1
-✔ Back-End Development
-You choose "Back-End Development"
-✔ Pyramid
-You choose "Pyramid Python framework."
-✔ Async
-You choose "Async"
-✔ aiopyramid
-You choose "aiopyramid"
+aweome-cli Version 0.2.0
+✔ Platforms
+✔ Linux
+✔ Applications
+✔ Gedit
+https://wiki.gnome.org/Apps/Gedit
 ```
 
 ## How To Contribute
