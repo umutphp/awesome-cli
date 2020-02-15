@@ -10,7 +10,7 @@ import (
 )
 
 // VERSION of the cli
-const VERSION = "0.2.0"
+const VERSION = "0.3.0"
 
 func main() {
     args    := os.Args[1:]
