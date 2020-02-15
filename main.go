@@ -37,6 +37,7 @@ func DisplayHelp() {
 	fmt.Printf("%-2v%-10v%-10v\n", "", "random", "To go to a random awesome content.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "To go to a surprise awesome content according to your previos choices.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "profile", "To see your previos choices.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "reset", "To clean your choices to start from the beginning.")
 	fmt.Println("")
 	fmt.Println("")
 }
@@ -59,6 +60,12 @@ func SurpriseRepo(man manager.Manager) {
 	rpwd,url    := prompter.Surprise(&man, category.GetName(), subcategory.GetName())
 
 	DisplayRepoWithPath(url, rpwd)
+}
+
+func Reset(man manager.Manager) {
+	favourites  := favourite.New("awesome")
+	favourites.SaveCache()
+	fmt.Println("The choice list has been cleared.")
 }
 
 func Profile(man manager.Manager) {
@@ -100,6 +107,11 @@ func Argumented(param []string, man manager.Manager) {
 	
 	if param[0] == "help" {
 		DisplayHelp()
+		return
+	}
+	
+	if param[0] == "reset" {
+		Reset(man)
 		return
 	}
 	
