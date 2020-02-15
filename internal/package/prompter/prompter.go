@@ -4,6 +4,8 @@ import (
 	"math/rand"
     "time"
     "strings"
+    "runtime"
+    "os/exec"
 	
 	"github.com/umutphp/awesome-cli/internal/package/node"
 	"github.com/umutphp/awesome-cli/internal/package/manager"
@@ -142,4 +144,32 @@ func Random(m *manager.Manager) ([]string, string) {
     }
 
 	return list,child.GetURL()
+}
+
+func PromptToContinue() string {
+	prompt := promptui.Prompt{
+		Label:     "Continue walking in awesome lists",
+		IsConfirm: true,
+	}
+
+	result, err := prompt.Run()
+
+	if err != nil {
+		return ""
+	}
+
+	return result
+}
+
+func OpenInBrowser(url string) {
+	switch runtime.GOOS {
+	case "linux":
+		exec.Command("xdg-open", url).Start()
+	case "windows":
+		exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		exec.Command("open", url).Start()
+	default:
+		// Unsupported platform, nothing to do
+	}
 }

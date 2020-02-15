@@ -7,8 +7,6 @@ import (
 	"github.com/umutphp/awesome-cli/internal/package/manager"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
 	"github.com/umutphp/awesome-cli/internal/package/favourite"
-
-	"github.com/pkg/browser"
 )
 
 // VERSION of the cli
@@ -91,7 +89,7 @@ func DisplayRepoWithPath(url string, path []string) {
 
 	fmt.Println(url)
 	
-	browser.OpenURL(url)
+	prompter.OpenInBrowser(url)
 }
 
 func Argumented(param []string, man manager.Manager) {
@@ -165,5 +163,10 @@ func Walk(man manager.Manager) {
 
 	favourites.SaveCache()
 
-	browser.OpenURL(cursor.GetURL())
+	prompter.OpenInBrowser(cursor.GetURL())
+
+	walking := prompter.PromptToContinue()
+	if walking == "y" {
+		Walk(man)
+	}
 }
