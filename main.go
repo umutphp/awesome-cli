@@ -22,17 +22,8 @@ func main() {
 
 	fmt.Println("aweome-cli Version", VERSION)
 
-	if (len(args) > 0) && (args[0] == "random") {
-		RandomRepo(manager)
-		return
-	}
-
-	if (len(args) > 0) && (args[0] == "surprise") {
-		SurpriseRepo(manager)
-		return
-	}
-	if len(args) > 0 && args[0] == "help" {
-		DisplayHelp()
+	if len(args) > 0 {
+		Argumented(args, manager)
 		return
 	}
 		
@@ -45,6 +36,7 @@ func DisplayHelp() {
 	fmt.Printf("%-2v%-10v%-10v\n", "", "help", "To print this screen.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "random", "To go to a random awesome content.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "To go to a surprise awesome content according to your previos choices.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "profile", "To see your previos choices.")
 	fmt.Println("")
 	fmt.Println("")
 }
@@ -69,6 +61,22 @@ func SurpriseRepo(man manager.Manager) {
 	DisplayRepoWithPath(url, rpwd)
 }
 
+func Profile(man manager.Manager) {
+	favourites  := favourite.NewFromCache("awesome")
+	fmt.Println("")
+	fmt.Println("Your choices:")
+
+	for _,category := range favourites.GetChildren() {
+		fmt.Println("", category.GetName())
+
+		for _,subcategory := range category.GetChildren() {
+			fmt.Println("  ", subcategory.GetName())
+		}
+	}
+
+	fmt.Println("")
+}
+
 func DisplayRepoWithPath(url string, path []string) {
 	for _, str := range path {
 		fmt.Println(str)
@@ -77,6 +85,28 @@ func DisplayRepoWithPath(url string, path []string) {
 	fmt.Println(url)
 	
 	browser.OpenURL(url)
+}
+
+func Argumented(param []string, man manager.Manager) {
+	if param[0] == "random" {
+		RandomRepo(man)
+		return
+	}
+
+	if param[0] == "surprise" {
+		SurpriseRepo(man)
+		return
+	}
+	
+	if param[0] == "help" {
+		DisplayHelp()
+		return
+	}
+	
+	if param[0] == "profile" {
+		Profile(man)
+		return
+	}
 }
 
 func Walk(man manager.Manager) {
