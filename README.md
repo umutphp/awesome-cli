@@ -1,6 +1,6 @@
 # awesome-cli
 
-Awesome CLI is a simple and immature command line tool to give you a fancy command line interface to dive into [Awesome](https://github.com/sindresorhus/awesome) lists.
+Awesome CLI is a simple command line tool to give you a fancy command line interface to dive into [Awesome](https://github.com/sindresorhus/awesome) lists.
 
 ![Build](https://github.com/umutphp/awesome-cli/workflows/Test%20&%20Build/badge.svg) ![WOSPM Checker](https://github.com/umutphp/awesome-cli/workflows/WOSPM%20Checker/badge.svg)
 
@@ -27,7 +27,57 @@ The CLI starts with the root repository [sindresorhus/awesome](https://github.co
 
 ![IMAGE ALT TEXT](./assets/images/awesome-cli.gif)
 
-## How To Install And Use
+## How To Use
+
+### Interactive Mode
+
+In order to use awesome-cli interactively, just execute it without giving any option. You will walk through the categories and repositories by using "↓ ↑ → ←" buttons. You choices will be saved to use them in [surprise mode](#surprise-mode).
+
+```bash
+> $ awesome-cli
+Use the arrow keys to navigate: ↓ ↑ → ← 
+? Select from 'Awesome' list: 
+  ▸ Platforms
+    Programming Languages
+    Front-End Development
+    Back-End Development
+    Computer Science
+    Big Data
+    Theory
+    Books
+    Editors
+↓   Gaming
+```
+
+### Random Mode
+
+You can use "random" option to go a random awesome repository under a random category.
+
+```bash
+> $ awesome-cli random
+aweome-cli Version 0.3.0
+✔ Programming Languages
+✔ Eta
+✔ Community
+✔ IRC
+https://kiwiirc.com/client/irc.freenode.net/#eta-lang
+```
+
+### Surprise Mode
+
+When you use "surprise" option, awesome-cli will use your previous selections in [interective mode](#interactive-mode) to find a random repository for you.
+
+```bash
+> $ awesome-cli surprise
+aweome-cli Version 0.3.0
+✔ Back-End Development
+✔ Docker
+✔ Videos
+✔ From Local Docker Development to Production Deployments
+https://www.youtube.com/watch?v=7CZFpHUPqXw
+```
+
+## How To Install
 
 ### Basic
 
