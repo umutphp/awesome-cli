@@ -10,7 +10,11 @@ Awesome CLI is a simple command line tool to give you a fancy command line inter
 
 
 - [Introduction](#introduction)
-- [How To Install And Use](#how-to-install-and-use)
+- [How To Use](#how-to-use)
+  - [Interactive Mode](#interactive-mode)
+  - [Random Mode](#random-mode)
+  - [Surprise Mode](#surprise-mode)
+- [How To Install](#how-to-install)
   - [Basic](#basic)
   - [Build as binary](#build-as-binary)
   - [Download and use oficial binary](#download-and-use-oficial-binary)
