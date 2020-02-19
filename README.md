@@ -69,7 +69,7 @@ https://kiwiirc.com/client/irc.freenode.net/#eta-lang
 
 ### Surprise Mode
 
-When you use "surprise" option, awesome-cli will use your previous selections in [interective mode](#interactive-mode) to find a random repository for you.
+When you use "surprise" option, awesome-cli will use your previous selections in [interactive mode](#interactive-mode) to find a random repository for you.
 
 ```bash
 > $ awesome-cli surprise
