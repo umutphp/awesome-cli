@@ -35,7 +35,7 @@ The CLI starts with the root repository [sindresorhus/awesome](https://github.co
 
 ### Interactive Mode
 
-In order to use awesome-cli interactively, just execute it without giving any option. You will walk through the categories and repositories by using "↓ ↑ → ←" buttons. You choices will be saved to use them in [surprise mode](#surprise-mode).
+In order to use awesome-cli interactively, just execute it without giving any option. You will walk through the categories and repositories by using "↓ ↑ → ←" buttons. Your choices will be saved to use them in [surprise mode](#surprise-mode).
 
 ```bash
 > $ awesome-cli
