@@ -106,7 +106,7 @@ Follow the steps;
 > $ awesome-cli
 ```
 
-### Download and use oficial binary
+### Download and use official binary
 
 Visit the [latest release](https://github.com/umutphp/awesome-cli/releases/latest) page and download the binary correspondingly. 
 
