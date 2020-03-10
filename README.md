@@ -19,7 +19,7 @@ Awesome CLI is a simple command line tool to give you a fancy command line inter
 - [How To Install](#how-to-install)
   - [Basic](#basic)
   - [Build as binary](#build-as-binary)
-  - [Download and use oficial binary](#download-and-use-oficial-binary)
+  - [Download and use official binary](#download-and-use-official-binary)
   - [CLI Options](#cli-options)
   - [Sample Execution](#sample-execution)
 - [How To Contribute](#how-to-contribute)
