@@ -9,8 +9,13 @@ import (
 	"github.com/umutphp/awesome-cli/internal/package/favourite"
 )
 
-// VERSION of the cli
-const VERSION = "0.3.0"
+const (
+	CACHE_KEY = "awesome"
+	// VERSION of the cli
+	VERSION   = "0.3.0"
+)
+
+
 
 func main() {
     args    := os.Args[1:]
@@ -47,7 +52,7 @@ func RandomRepo(man manager.Manager) {
 }
 
 func SurpriseRepo(man manager.Manager) {
-	favourites  := favourite.NewFromCache("awesome")
+	favourites  := favourite.NewFromCache(CACHE_KEY)
 
 	if len(favourites.GetChildren()) == 0 {
 		RandomRepo(man)
@@ -61,13 +66,13 @@ func SurpriseRepo(man manager.Manager) {
 }
 
 func Reset(man manager.Manager) {
-	favourites  := favourite.New("awesome")
+	favourites  := favourite.New(CACHE_KEY)
 	favourites.SaveCache()
 	fmt.Println("The choice list has been cleared.")
 }
 
 func Profile(man manager.Manager) {
-	favourites  := favourite.NewFromCache("awesome")
+	favourites  := favourite.NewFromCache(CACHE_KEY)
 	fmt.Println("")
 	fmt.Println("Your choices:")
 
@@ -122,7 +127,7 @@ func Argumented(param []string, man manager.Manager) {
 func Walk(man manager.Manager) {
 	cursor     := man.Root
 	i          := 0
-	favourites := favourite.NewFromCache("awesome")
+	favourites := favourite.NewFromCache(CACHE_KEY)
 	firstsel   := ""
 
 	for {
