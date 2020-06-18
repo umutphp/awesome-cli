@@ -1,0 +1,14 @@
+name: Lint Code Base
+on: [push, pull_request]
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Lint Code Base
+        uses: github/super-linter@v2.0.0
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ANSIBLE: false

@@ -4,21 +4,20 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/umutphp/awesome-cli/internal/package/favourite"
 	"github.com/umutphp/awesome-cli/internal/package/manager"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
-	"github.com/umutphp/awesome-cli/internal/package/favourite"
 )
 
 const (
+	// CACHE_KEY is the name of the cache folder
 	CACHE_KEY = "awesome"
 	// VERSION of the cli
-	VERSION   = "0.3.0"
+	VERSION = "0.3.0"
 )
 
-
-
 func main() {
-    args    := os.Args[1:]
+	args := os.Args[1:]
 	manager := manager.New()
 
 	manager.Initialize()
@@ -29,7 +28,7 @@ func main() {
 		Argumented(args, manager)
 		return
 	}
-		
+
 	Walk(manager)
 }
 
@@ -46,40 +45,40 @@ func DisplayHelp() {
 }
 
 func RandomRepo(man manager.Manager) {
-	rpwd,url   := prompter.Random(&man)
+	rpwd, url := prompter.Random(&man)
 
 	DisplayRepoWithPath(url, rpwd)
 }
 
 func SurpriseRepo(man manager.Manager) {
-	favourites  := favourite.NewFromCache(CACHE_KEY)
+	favourites := favourite.NewFromCache(CACHE_KEY)
 
 	if len(favourites.GetChildren()) == 0 {
 		RandomRepo(man)
 	}
 
-	category    := favourites.GetRandom()
+	category := favourites.GetRandom()
 	subcategory := category.GetRandom()
-	rpwd,url    := prompter.Surprise(&man, category.GetName(), subcategory.GetName())
+	rpwd, url := prompter.Surprise(&man, category.GetName(), subcategory.GetName())
 
 	DisplayRepoWithPath(url, rpwd)
 }
 
 func Reset(man manager.Manager) {
-	favourites  := favourite.New(CACHE_KEY)
+	favourites := favourite.New(CACHE_KEY)
 	favourites.SaveCache()
 	fmt.Println("The choice list has been cleared.")
 }
 
 func Profile(man manager.Manager) {
-	favourites  := favourite.NewFromCache(CACHE_KEY)
+	favourites := favourite.NewFromCache(CACHE_KEY)
 	fmt.Println("")
 	fmt.Println("Your choices:")
 
-	for _,category := range favourites.GetChildren() {
+	for _, category := range favourites.GetChildren() {
 		fmt.Println("", category.GetName())
 
-		for _,subcategory := range category.GetChildren() {
+		for _, subcategory := range category.GetChildren() {
 			fmt.Println("  ", subcategory.GetName())
 		}
 	}
@@ -93,7 +92,7 @@ func DisplayRepoWithPath(url string, path []string) {
 	}
 
 	fmt.Println(url)
-	
+
 	prompter.OpenInBrowser(url)
 }
 
@@ -107,17 +106,17 @@ func Argumented(param []string, man manager.Manager) {
 		SurpriseRepo(man)
 		return
 	}
-	
+
 	if param[0] == "help" {
 		DisplayHelp()
 		return
 	}
-	
+
 	if param[0] == "reset" {
 		Reset(man)
 		return
 	}
-	
+
 	if param[0] == "profile" {
 		Profile(man)
 		return
@@ -125,13 +124,13 @@ func Argumented(param []string, man manager.Manager) {
 }
 
 func Walk(man manager.Manager) {
-	cursor     := man.Root
-	i          := 0
+	cursor := man.Root
+	i := 0
 	favourites := favourite.NewFromCache(CACHE_KEY)
-	firstsel   := ""
+	firstsel := ""
 
 	for {
-	    prompt := prompter.Create(cursor.Name, cursor)
+		prompt := prompter.Create(cursor.Name, cursor)
 
 		_, selected, err := prompt.Run()
 
