@@ -7,28 +7,28 @@ import (
 )
 
 func TestGetName(t *testing.T) {
-    n := node.New("Test", "", "")
-    if n.GetName() != "Test" {
-       t.Errorf("Name is incorrect, got: %s, want: %s.", n.GetName(), "Test")
-    }
+	n := node.New("Test", "", "")
+	if n.GetName() != "Test" {
+		t.Errorf("Name is incorrect, got: %s, want: %s.", n.GetName(), "Test")
+	}
 }
 
 func TestGetFancyText(t *testing.T) {
-    n := node.New("Name", "", "")
-    if n.GetFancyText() != "Name" {
-       t.Errorf("Fancy text is incorrect, got: %s, want: %s.", n.GetFancyText(), "Name")
-    }
+	n := node.New("Name", "", "")
+	if n.GetFancyText() != "Name" {
+		t.Errorf("Fancy text is incorrect, got: %s, want: %s.", n.GetFancyText(), "Name")
+	}
 
-    n = node.New("Name", "", "Description")
-    if n.GetFancyText() != "Name Description" {
-       t.Errorf("Fancy text is incorrect, got: %s, want: %s.", n.GetFancyText(), "Name Description")
-    }
+	n = node.New("Name", "", "Description")
+	if n.GetFancyText() != "Name Description" {
+		t.Errorf("Fancy text is incorrect, got: %s, want: %s.", n.GetFancyText(), "Name Description")
+	}
 }
 
 func TestGetPWD(t *testing.T) {
 	nnn := node.New("NNN", "url", "Description NNN")
-	nn  := node.New("NN", "url", "Description NN")
-	n   := node.New("N", "url", "Description N")
+	nn := node.New("NN", "url", "Description NN")
+	n := node.New("N", "url", "Description N")
 
 	n.AddChild(nn)
 	nn.AddChild(nnn)

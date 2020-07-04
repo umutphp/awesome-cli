@@ -1,22 +1,22 @@
 package favourite
 
 import (
+	"encoding/gob"
 	"math/rand"
-    "time"
-    "os"
-    "encoding/gob"
+	"os"
+	"time"
 
 	"github.com/umutphp/awesome-cli/internal/package/fetcher"
 )
 
 type Favourite struct {
-	Name string
+	Name     string
 	Children map[string]Favourite
 }
 
 func New(name string) Favourite {
 	return Favourite{
-		Name: name,
+		Name:     name,
 		Children: map[string]Favourite{},
 	}
 }
@@ -46,7 +46,7 @@ func (f *Favourite) GetRandom() Favourite {
 	rint := rand.Intn(len(f.Children))
 
 	i := 0
-	for _,fav := range f.Children  {
+	for _, fav := range f.Children {
 		if i == rint {
 			return fav
 		}
@@ -77,23 +77,23 @@ func (f *Favourite) SaveCache() {
 }
 
 func NewFromCache(cachename string) Favourite {
-	filename   := fetcher.GetCachePath(cachename)
-	_, err     := os.Stat(filename)
+	filename := fetcher.GetCachePath(cachename)
+	_, err := os.Stat(filename)
 	favourites := Favourite{
-		Name: cachename,
+		Name:     cachename,
 		Children: map[string]Favourite{},
 	}
 
-    if os.IsNotExist(err) {
-        return favourites
-    }
-	
+	if os.IsNotExist(err) {
+		return favourites
+	}
+
 	decodeFile, err := os.Open(filename)
-	
+
 	if err != nil {
 		panic(err)
 	}
-	
+
 	defer decodeFile.Close()
 
 	decoder := gob.NewDecoder(decodeFile)

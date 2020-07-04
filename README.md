@@ -132,7 +132,7 @@ Options of awesome-cli:
 ### Sample Execution
 
 ```bash
-> $ go run main.go
+> $ awesome-cli random
 aweome-cli Version 0.2.0
 ✔ Platforms
 ✔ Linux

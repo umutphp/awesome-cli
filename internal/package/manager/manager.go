@@ -3,16 +3,16 @@ package manager
 import (
 	"fmt"
 
-    "github.com/umutphp/awesome-cli/internal/package/node"
-    "github.com/umutphp/awesome-cli/internal/package/fetcher"
-    "github.com/umutphp/awesome-cli/internal/package/parser"
+	"github.com/umutphp/awesome-cli/internal/package/fetcher"
+	"github.com/umutphp/awesome-cli/internal/package/node"
+	"github.com/umutphp/awesome-cli/internal/package/parser"
 )
 
 type Manager struct {
-    Root          *node.Node
-    PWD           *node.Node
-    History       []Command
-    ValidCommands []Command
+	Root          *node.Node
+	PWD           *node.Node
+	History       []Command
+	ValidCommands []Command
 }
 
 type Command struct {
@@ -65,10 +65,10 @@ func (m *Manager) Initialize() {
 		panic(err)
 	}
 
-	root      := parser.ParseIndex(fecthed)
-	root.Name  = "Awesome"
-	m.Root     = &root
-	m.PWD      = m.Root
+	root := parser.ParseIndex(fecthed)
+	root.Name = "Awesome"
+	m.Root = &root
+	m.PWD = m.Root
 }
 
 func (c *Command) Execute(m *Manager) {

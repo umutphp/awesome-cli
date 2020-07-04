@@ -2,59 +2,59 @@ package parser
 
 import (
 	//"fmt"
-	"strings"
 	"regexp"
+	"strings"
 
 	"github.com/umutphp/awesome-cli/internal/package/node"
 )
 
 func ParseIndex(readme string) node.Node {
 	var parseStatus = false
-	var cname string  = ""
-	var cobj  node.Node
+	var cname string = ""
+	var cobj node.Node
 	// May be used for logging
 	var categoryCount int = 0
-	var contentCount int  = 0
+	var contentCount int = 0
 
 	var index node.Node
 
-    for _, line := range strings.Split(strings.TrimSuffix(readme, "\n"), "\n") {
-	    //fmt.Println(line)
+	for _, line := range strings.Split(strings.TrimSuffix(readme, "\n"), "\n") {
+		//fmt.Println(line)
 
-	    if IsCategory(line) {
-	    	if !IsCategoryIgnored(line) {
-		    	parseStatus = true
-		    	
-		    	if (cname != "") {
-		    		index.AddChild(cobj)
-		    	}
+		if IsCategory(line) {
+			if !IsCategoryIgnored(line) {
+				parseStatus = true
 
-		    	cname = LineToTitle(line)
-		    	cobj  = node.New(cname,"", "")
-		    	categoryCount++
-		    	continue
-		    } else {
-		    	parseStatus = false
-		    }
-	    }
-	    
-	    if (parseStatus == true) {
-	    	if IsContent(line) {
-	    		name, url, desc, _  := ParseContentFromLine(line)
+				if cname != "" {
+					index.AddChild(cobj)
+				}
 
-	    		cobj.AddChild(node.New(name, url, desc))
-	    		contentCount++
-		    	continue
-		    }
+				cname = LineToTitle(line)
+				cobj = node.New(cname, "", "")
+				categoryCount++
+				continue
+			} else {
+				parseStatus = false
+			}
+		}
 
-		    if (IsNestedContent(line)) {
-		    	name, url, desc, _ := ParseContentFromLine(strings.Trim(line, " "))
+		if parseStatus == true {
+			if IsContent(line) {
+				name, url, desc, _ := ParseContentFromLine(line)
 
-		    	cobj.AddChild(node.New("  " + name, url, desc))
-		    	contentCount++
-		    	continue
-		    }
-	    }
+				cobj.AddChild(node.New(name, url, desc))
+				contentCount++
+				continue
+			}
+
+			if IsNestedContent(line) {
+				name, url, desc, _ := ParseContentFromLine(strings.Trim(line, " "))
+
+				cobj.AddChild(node.New("  "+name, url, desc))
+				contentCount++
+				continue
+			}
+		}
 	}
 
 	index.AddChild(cobj)
@@ -68,7 +68,7 @@ func IsCategory(line string) bool {
 
 func IsNestedContent(line string) bool {
 	re := regexp.MustCompile(`^\s+\-.\[.+\]`)
-	
+
 	if len(re.FindStringIndex(line)) > 0 {
 		return true
 	}
@@ -82,14 +82,14 @@ func IsContent(line string) bool {
 
 func IsCategoryIgnored(line string) bool {
 	ignoreList := []string{"Table of Contents", "Contents", "Contributing", "TODO", "Introduction", "License"}
-	str        := LineToTitle(line)
+	str := LineToTitle(line)
 	for _, s := range ignoreList {
-        if (s == str) {
-        	return true
-        }
-    }
+		if s == str {
+			return true
+		}
+	}
 
-    return false
+	return false
 }
 
 func LineToTitle(line string) string {
@@ -101,24 +101,24 @@ func LineToTitle(line string) string {
 
 func ParseContentFromLine(line string) (string, string, string, error) {
 	name := Split(line, "[", "]")
-	url  := Split(line, "(", ")")
-	line  = strings.Trim(line, "- ")
-	desc :=  ""
+	url := Split(line, "(", ")")
+	line = strings.Trim(line, "- ")
+	desc := ""
 
-	if (strings.HasSuffix(line, ".")) {
-		desc = Split(line, " - ", "\n")	
+	if strings.HasSuffix(line, ".") {
+		desc = Split(line, " - ", "\n")
 	}
 
 	return name, url, desc, nil
 }
 
 func Split(str, before, after string) string {
-    a := strings.SplitAfterN(str, before, 2)
-    b := strings.SplitAfterN(a[len(a)-1], after, 2)
+	a := strings.SplitAfterN(str, before, 2)
+	b := strings.SplitAfterN(a[len(a)-1], after, 2)
 
-    if 1 == len(b) {
-        return b[0]
-    }
-    
-    return b[0][0:len(b[0])-len(after)]
+	if 1 == len(b) {
+		return b[0]
+	}
+
+	return b[0][0 : len(b[0])-len(after)]
 }

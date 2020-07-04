@@ -5,14 +5,14 @@ import (
 )
 
 type Node struct {
-    Name        string
-    URL         string
-    Description string
-    Children    []Node
-    Parent      *Node
+	Name        string
+	URL         string
+	Description string
+	Children    []Node
+	Parent      *Node
 }
 
-func New(name, url, description string,) Node {
+func New(name, url, description string) Node {
 	return Node{
 		Name:        name,
 		URL:         url,
@@ -24,7 +24,7 @@ func New(name, url, description string,) Node {
 
 func (n *Node) Display() {
 	fmt.Println(n.Name, n.URL, n.Description)
-} 
+}
 
 func (n *Node) GetName() string {
 	return n.Name
@@ -61,13 +61,13 @@ func (n *Node) SetChildren(arr []Node) {
 }
 
 func (n *Node) GetPWD() []string {
-	pwd   := []string{}
+	pwd := []string{}
 	point := n
 
 	for {
 		pwd = append(pwd, point.GetName())
-		
-		if (point.GetParent() == nil) {
+
+		if point.GetParent() == nil {
 			break
 		}
 
@@ -87,11 +87,11 @@ func (n *Node) AddChild(child Node) {
 }
 
 func (n *Node) FindChildByName(name string) *Node {
-	for _,child := range n.Children {
+	for _, child := range n.Children {
 		if child.Name == name {
 			return &child
 		}
 	}
 
 	return nil
-} 
+}

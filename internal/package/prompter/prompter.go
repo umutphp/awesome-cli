@@ -2,14 +2,14 @@ package prompter
 
 import (
 	"math/rand"
-    "time"
-    "strings"
-    "runtime"
-    "os/exec"
-	
-	"github.com/umutphp/awesome-cli/internal/package/node"
-	"github.com/umutphp/awesome-cli/internal/package/manager"
+	"os/exec"
+	"runtime"
+	"strings"
+	"time"
+
 	"github.com/umutphp/awesome-cli/internal/package/fetcher"
+	"github.com/umutphp/awesome-cli/internal/package/manager"
+	"github.com/umutphp/awesome-cli/internal/package/node"
 
 	"github.com/manifoldco/promptui"
 )
@@ -17,14 +17,14 @@ import (
 func Create(title string, n *node.Node) promptui.Select {
 	items := []string{}
 
-	for _,child := range n.GetChildren() {
+	for _, child := range n.GetChildren() {
 		items = append(items, child.GetName())
 	}
 
 	size := 5
 
 	if len(items) > 10 {
-		size = int(len(items)/2)
+		size = int(len(items) / 2)
 	}
 
 	if size > 10 {
@@ -52,98 +52,97 @@ func ToFavouriteString(child *node.Node) string {
 }
 
 func Surprise(m *manager.Manager, category string, subcategory string) ([]string, string) {
-	cursor   := m.Root
-	list     := []string{}
+	cursor := m.Root
+	list := []string{}
 
-	child    := cursor.FindChildByName(category)
-	list      = append(list, ToFavouriteString(child))
+	child := cursor.FindChildByName(category)
+	list = append(list, ToFavouriteString(child))
 
-	child     = child.FindChildByName(subcategory)
-	list      = append(list, ToFavouriteString(child))
+	child = child.FindChildByName(subcategory)
+	list = append(list, ToFavouriteString(child))
 	m.SetPWD(child)
 
 	// Chose main category on sub awesome-list repository
 	rand.Seed(time.Now().UnixNano())
-    children := child.GetChildren()
-    ind      := rand.Intn(len(children))
-    child     = &children[ind]
-    list      = append(list, ToFavouriteString(child))
+	children := child.GetChildren()
+	ind := rand.Intn(len(children))
+	child = &children[ind]
+	list = append(list, ToFavouriteString(child))
 
 	m.SetPWD(child)
 
 	// Select last child
 	rand.Seed(time.Now().UnixNano())
-    children  = child.GetChildren()
-    ind       = rand.Intn(len(children))
-    child     = &children[ind]
-    list      = append(list, ToFavouriteString(child))
-
+	children = child.GetChildren()
+	ind = rand.Intn(len(children))
+	child = &children[ind]
+	list = append(list, ToFavouriteString(child))
 
 	if child.GetURL() == "" {
-    	return Surprise(m, category, subcategory)
-    }
+		return Surprise(m, category, subcategory)
+	}
 
-    if fetcher.IsUrl(child.GetURL()) == false {
-    	return Surprise(m, category, subcategory)
-    }
+	if fetcher.IsUrl(child.GetURL()) == false {
+		return Surprise(m, category, subcategory)
+	}
 
-	return list,child.GetURL()
+	return list, child.GetURL()
 }
 
 func Random(m *manager.Manager) ([]string, string) {
-	cursor   := m.Root
-	list     := []string{}
+	cursor := m.Root
+	list := []string{}
 
 	// Select main category
 	rand.Seed(time.Now().UnixNano())
 	children := cursor.GetChildren()
 
-    ind      := rand.Intn(len(children))
-    child    := &children[ind]
-    list      = append(list, ToFavouriteString(child))
+	ind := rand.Intn(len(children))
+	child := &children[ind]
+	list = append(list, ToFavouriteString(child))
 
-    // Select sub awesome-list repository
-    for {
-	    rand.Seed(time.Now().UnixNano())
-	    children  = child.GetChildren()
-	    ind       = rand.Intn(len(children))
-	    child     = &children[ind]
+	// Select sub awesome-list repository
+	for {
+		rand.Seed(time.Now().UnixNano())
+		children = child.GetChildren()
+		ind = rand.Intn(len(children))
+		child = &children[ind]
 
-	    m.SetPWD(child)
+		m.SetPWD(child)
 
 		if len(child.GetChildren()) <= 1 {
 			return Random(m)
 		}
 
-		list      = append(list, ToFavouriteString(child))
+		list = append(list, ToFavouriteString(child))
 		break
 	}
 
 	// Chose main category on sub awesome-list repository
 	rand.Seed(time.Now().UnixNano())
-    children  = child.GetChildren()
-    ind       = rand.Intn(len(children))
-    child     = &children[ind]
-    list      = append(list, ToFavouriteString(child))
+	children = child.GetChildren()
+	ind = rand.Intn(len(children))
+	child = &children[ind]
+	list = append(list, ToFavouriteString(child))
 
 	m.SetPWD(child)
 
 	// Select last child
 	rand.Seed(time.Now().UnixNano())
-    children  = child.GetChildren()
-    ind       = rand.Intn(len(children))
-    child     = &children[ind]
-    list      = append(list, ToFavouriteString(child))
+	children = child.GetChildren()
+	ind = rand.Intn(len(children))
+	child = &children[ind]
+	list = append(list, ToFavouriteString(child))
 
-    if child.GetURL() == "" {
-    	return Random(m)
-    }
+	if child.GetURL() == "" {
+		return Random(m)
+	}
 
-    if fetcher.IsUrl(child.GetURL()) == false {
-    	return Random(m)
-    }
+	if fetcher.IsUrl(child.GetURL()) == false {
+		return Random(m)
+	}
 
-	return list,child.GetURL()
+	return list, child.GetURL()
 }
 
 func PromptToContinue() string {
