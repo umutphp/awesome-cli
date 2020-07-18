@@ -1,3 +1,4 @@
+name: Update GitHub Profile Page
 on: [push]
 
 jobs:
