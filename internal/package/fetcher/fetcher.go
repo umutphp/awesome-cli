@@ -12,9 +12,19 @@ import (
 	"time"
 )
 
-const AWESOMEREPOURL = "https://github.com/sindresorhus/awesome/"
+const AWESOMEREPOURL = "https://github.com/sindresorhus/awesome"
 const AWESOMECACHEFOLDER = ".awesomecache"
 const RAWGITHUBUSERCONTENT = "https://raw.githubusercontent.com"
+
+var BRANCHES = []string{"/master/", "/main/"}
+var README_PATTERNS = []string{
+	"README",
+	"README.MD",
+	"README.md",
+	"readme",
+	"readme.md",
+	"readme.MD",
+}
 
 func FetchAwsomeRootRepo() (string, error) {
 	return FetchAwsomeRepo(AWESOMEREPOURL)
@@ -53,9 +63,8 @@ func FetchAwsomeRepo(repourl string) (string, error) {
 			continue
 		}
 
-		defer response.Body.Close()
-
 		responseData, err := ioutil.ReadAll(response.Body)
+		response.Body.Close()
 
 		if err != nil {
 			log.Println(err)
@@ -81,16 +90,17 @@ func GetPossibleReadmeFileURLs(repourl string) []string {
 		return []string{}
 	}
 
-	prefix := RAWGITHUBUSERCONTENT + u.Path + "/master/"
+	prefix := RAWGITHUBUSERCONTENT + u.Path
 
-	return []string{
-		prefix + "README",
-		prefix + "README.MD",
-		prefix + "README.md",
-		prefix + "readme",
-		prefix + "readme.md",
-		prefix + "readme.MD",
+	var ret []string
+
+	for _, br := range BRANCHES {
+		for _, readme := range README_PATTERNS {
+			ret = append(ret, prefix+br+readme)
+		}
 	}
+
+	return ret
 }
 
 func GetCachePath(url string) string {
