@@ -7,6 +7,7 @@ import (
 	"github.com/umutphp/awesome-cli/internal/package/favourite"
 	"github.com/umutphp/awesome-cli/internal/package/manager"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
+	"github.com/umutphp/awesome-cli/internal/package/selfupdate"
 )
 
 const (
@@ -18,11 +19,19 @@ const (
 
 func main() {
 	args := os.Args[1:]
+	if args[0] == "update" {
+		if err := selfupdate.Update(VERSION); err != nil {
+			fmt.Printf("Update failed: %s\n", err)
+		}
+
+		return
+	}
+
 	manager := manager.New()
 
 	manager.Initialize()
 
-	fmt.Println("aweome-cli Version", VERSION)
+	fmt.Println("awesome-cli Version", VERSION)
 
 	if len(args) > 0 {
 		Argumented(args, manager)
@@ -38,8 +47,10 @@ func DisplayHelp() {
 	fmt.Printf("%-2v%-10v%-10v\n", "", "help", "To print this screen.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "random", "To go to a random awesome content.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "surprise", "To go to a surprise awesome content according to your previos choices.")
-	fmt.Printf("%-2v%-10v%-10v\n", "", "profile", "To see your previos choices.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "profile", "To see your previous choices.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "reset", "To clean your choices to start from the beginning.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "update", "Update awesome-cli to the latest version.")
+
 	fmt.Println("")
 	fmt.Println("")
 }
