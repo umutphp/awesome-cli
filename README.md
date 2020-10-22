@@ -121,12 +121,15 @@ The CLI works in interactive mode without any given option. But, It can be also 
 
 ```bash
 > $ awesome-cli help
-aweome-cli Version 0.2.0
+awesome-cli Version 0.6.0
 
 Options of awesome-cli:
   help      To print this screen.
   random    To go to a random awesome content.
   surprise  To go to a surprise awesome content according to your previos choices.
+  profile   To see your previous choices.
+  reset     To clean your choices to start from the beginning.
+  update    Update awesome-cli to the latest version.
 ```
 
 ### Sample Execution
