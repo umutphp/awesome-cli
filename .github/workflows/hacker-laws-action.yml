@@ -1,0 +1,18 @@
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  hacker_laws_action:
+    runs-on: ubuntu-latest
+    name: Hacker Laws Action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Hacker Laws Action Step
+        env:
+          PR_URL: ${{ github.event.pull_request.comments_url }}
+          PR_SENDER: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ./
+        id: hacker_laws_action
