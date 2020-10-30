@@ -6,4 +6,5 @@ require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/manifoldco/promptui v0.7.0
 	github.com/rhysd/go-github-selfupdate v1.2.2
+	github.com/toqueteos/webbrowser v1.2.0
 )
