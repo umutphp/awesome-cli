@@ -19,13 +19,6 @@ const (
 
 func main() {
 	args := os.Args[1:]
-	if args[0] == "update" {
-		if err := selfupdate.Update(VERSION); err != nil {
-			fmt.Printf("Update failed: %s\n", err)
-		}
-
-		return
-	}
 
 	manager := manager.New()
 
@@ -130,6 +123,14 @@ func Argumented(param []string, man manager.Manager) {
 
 	if param[0] == "profile" {
 		Profile(man)
+		return
+	}
+
+	if param[0] == "update" {
+		if err := selfupdate.Update(VERSION); err != nil {
+			fmt.Printf("Update failed: %s\n", err)
+		}
+
 		return
 	}
 }
