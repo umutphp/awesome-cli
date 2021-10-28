@@ -26,11 +26,11 @@ var README_PATTERNS = []string{
 	"readme.MD",
 }
 
-func FetchAwsomeRootRepo() (string, error) {
-	return FetchAwsomeRepo(AWESOMEREPOURL)
+func FetchAwesomeRootRepo() (string, error) {
+	return FetchAwesomeRepo(AWESOMEREPOURL)
 }
 
-func FetchAwsomeRepo(repourl string) (string, error) {
+func FetchAwesomeRepo(repourl string) (string, error) {
 	if !CacheFolderExists() {
 		CreateCacheFolder()
 	}
