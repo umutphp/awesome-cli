@@ -34,13 +34,13 @@ func (m *Manager) Execute(command Command) {
 
 func (m *Manager) SetPWD(n *node.Node) {
 	if len(n.GetChildren()) == 0 {
-		fecthed, err := fetcher.FetchAwsomeRepo(n.GetURL())
+		fetched, err := fetcher.FetchAwesomeRepo(n.GetURL())
 
 		if err != nil {
 			panic(err)
 		}
 
-		temp := parser.ParseIndex(fecthed)
+		temp := parser.ParseIndex(fetched)
 
 		n.SetChildren(temp.GetChildren())
 	}
@@ -59,13 +59,13 @@ func (m *Manager) GoBack() {
 }
 
 func (m *Manager) Initialize() {
-	fecthed, err := fetcher.FetchAwsomeRootRepo()
+	fetched, err := fetcher.FetchAwesomeRootRepo()
 
 	if err != nil {
 		panic(err)
 	}
 
-	root := parser.ParseIndex(fecthed)
+	root := parser.ParseIndex(fetched)
 	root.Name = "Awesome"
 	m.Root = &root
 	m.PWD = m.Root
