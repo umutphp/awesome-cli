@@ -5,7 +5,9 @@ import (
 	"os"
 
 	"github.com/umutphp/awesome-cli/internal/package/favourite"
+	"github.com/umutphp/awesome-cli/internal/package/fetcher"
 	"github.com/umutphp/awesome-cli/internal/package/manager"
+	"github.com/umutphp/awesome-cli/internal/package/progress"
 	"github.com/umutphp/awesome-cli/internal/package/prompter"
 	"github.com/umutphp/awesome-cli/internal/package/selfupdate"
 )
@@ -43,6 +45,7 @@ func DisplayHelp() {
 	fmt.Printf("%-2v%-10v%-10v\n", "", "profile", "To see your previous choices.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "reset", "To clean your choices to start from the beginning.")
 	fmt.Printf("%-2v%-10v%-10v\n", "", "update", "Update awesome-cli to the latest version.")
+	fmt.Printf("%-2v%-10v%-10v\n", "", "cache", "Download all repository information to the cache.")
 
 	fmt.Println("")
 	fmt.Println("")
@@ -100,6 +103,23 @@ func DisplayRepoWithPath(url string, path []string) {
 	prompter.OpenInBrowser(url)
 }
 
+func CacheAll() {
+	fmt.Println("Downloading all reachable lists to cache.")
+	fmt.Println("This may take some time!")
+
+	updates := make(chan fetcher.Progress)
+	done := make(chan struct{})
+
+	go progress.ProgressBar(done, updates)
+	finalResult, errs := fetcher.FetchAllRepos(updates)
+	<-done
+	fmt.Print("\n")
+	fmt.Printf("Downloaded %d / Failed %d\n", finalResult.Crawled, finalResult.Errors)
+	if finalResult.Errors > 0 {
+		fmt.Println(errs)
+	}
+}
+
 func Argumented(param []string, man manager.Manager) {
 	if param[0] == "random" {
 		RandomRepo(man)
@@ -131,6 +151,11 @@ func Argumented(param []string, man manager.Manager) {
 			fmt.Printf("Update failed: %s\n", err)
 		}
 
+		return
+	}
+
+	if param[0] == "cache" {
+		CacheAll()
 		return
 	}
 }
