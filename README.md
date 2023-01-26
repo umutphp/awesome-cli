@@ -108,10 +108,10 @@ Follow the steps;
 
 ### Download and use official binary
 
-Visit the [latest release](https://github.com/umutphp/awesome-cli/releases/latest) page and download the binary correspondingly. 
+Visit the [latest release](https://github.com/umutphp/awesome-cli/releases/latest) page, download the zip correspondingly and extract the zip. You can used the binary in the zip file. 
 
 ```bash
-> $ wget -O /usr/local/bin/awesome-cli https://latest-binary-url
+> $ cp /path/to/zip/extract/awesome-cli /usr/local/bin/awesome-cli
 > $ awesome-cli
 ```
 
