@@ -16,7 +16,7 @@ const (
 	// CACHE_KEY is the name of the cache folder
 	CACHE_KEY = "awesome"
 	// VERSION of the cli
-	VERSION = "0.7.3"
+	VERSION = "0.7.6"
 )
 
 func main() {
