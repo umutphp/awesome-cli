@@ -11,6 +11,7 @@ Awesome CLI is a simple command line tool to give you a fancy command line inter
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Agent Shadow Brain](https://github.com/theihtisham/agent-shadow-brain) - Self-evolving AI coding intelligence with infinite memory (TurboQuant), genetic algorithm self-evolution, predictive bug detection, PageRank knowledge graphs, swarm intelligence, and adversarial defense.
 - [Introduction](#introduction)
 - [How To Use](#how-to-use)
   - [Interactive Mode](#interactive-mode)
@@ -27,6 +28,7 @@ Awesome CLI is a simple command line tool to give you a fancy command line inter
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ---
 
+- [Omni Skills Forge](https://github.com/theihtisham/omni-skills-forge) - 50,000+ curated AI agent skills for Claude Code, Cursor, Copilot, Windsurf, Cline. Visual dashboard, one-click install, skill doctor, auto-update.
 ## Introduction
 
 The CLI starts with the root repository [sindresorhus/awesome](https://github.com/sindresorhus/awesome) and guides to to the final repo according to your choices. It fetches Readme files of the repositories and parses them to create the select lists. So, the CLI needs a working network :). It also uses file caches to cache the Readme file contents. You can find the cache folder with name ".awesomecache" under your home folder.
